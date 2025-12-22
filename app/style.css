@@ -22,6 +22,34 @@ body, .container {
 
 
 
+/* navbar */
+.navbar {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    display: flex; 
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    background: transparent;
+    box-shadow: 0 10px 20px rgb(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+
+    
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 2rem;
+    max-width: 1600px;
+
+}
 
 
 .container header{
@@ -68,6 +96,12 @@ input {
     justify-content: center;
     align-content: center;
     cursor: pointer;
+    text-align: center;
+    padding: ;
+}
+
+.div-wrapper p{
+    font-size: 25px;
 }
 
 .styleforlist {

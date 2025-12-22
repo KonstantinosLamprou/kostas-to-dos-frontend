@@ -40,8 +40,14 @@ task.addEventListener('keydown', (e) => {
         });
         
         meindiv.addEventListener('click', function(){
+
+            if (meindiv.style.textDecoration === 'none') {
+                meindiv.style.textDecoration = 'line-through'      
+                } else {
+                meindiv.style.textDecoration = 'none'
+            }
             
-            meindiv.style.background = 'red';
+
         });
 
         //Nun werden dem div was erschaffen worden ist mit Körper und GEHIRN->EL
