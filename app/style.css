@@ -1,0 +1,90 @@
+/* global reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+
+}
+
+body, .container {
+    min-height: 100vh;
+    margin: 0 0 2em;
+    background: linear-gradient(#e66465, #9198e5);
+   
+}
+
+.container header{
+    flex:1; 
+    /* border: solid 2px ; */
+    display: flex;  
+    justify-content: flex-end;
+    text-align: center;
+    flex-direction: column;
+}
+
+.container main {
+    flex: 3;
+    
+    justify-content: center;
+    align-content: center;
+    flex: 0 0 2em;
+    text-align: center;
+    margin: 0 25%; 
+    display: flex;
+    gap: 1em;
+    /* border: solid 2px; */
+    flex-direction: column;
+    
+}
+
+.container footer {
+    flex: 1; 
+     /* border: solid 2px ; */
+}
+
+/* Styles für das Task-Input */
+input {
+    width: 250px;
+    height: 30px;
+    border-radius: 2em;
+    
+}
+
+/* Styles für die tasks */
+
+.div-wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.styleforlist {
+    
+    border-radius: 2em;
+    gap: 2em;
+    background: #fff;
+}
+
+
+#taskheader {
+    font-size: large;
+    color: #fff;
+}
+
+.resetdiv {
+    
+    display: none;
+}
+
+.active {
+    display: flex;
+    
+}
