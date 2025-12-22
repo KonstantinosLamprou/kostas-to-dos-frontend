@@ -52,9 +52,7 @@ task.addEventListener('keydown', (e) => {
 });  
 const resetdiv = document.querySelector('resetdiv');
 
-if (tasklist.innerHTML === "") {
-    resetdiv.classList.toggle('active');
-}
+
 // Löscht alle tasks
 const reset = document.getElementById("reset-btn");
 
@@ -65,6 +63,6 @@ reset.addEventListener('click', ()=>{
         });
 
 
-//damit der reset btn angezeigt wird 
+
 
 
