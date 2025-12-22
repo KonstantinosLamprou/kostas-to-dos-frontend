@@ -93,16 +93,27 @@ input {
 
 .div-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-content: center;
     cursor: pointer;
-    text-align: center;
-    padding: ;
+    flex-direction: row;
+    
 }
 
 .div-wrapper p{
-    font-size: 25px;
+    flex: 1;
+    text-align: end;
+    font-size: 20px;
 }
+
+
+.div-wrapper button{
+    flex: 1;
+    justify-content: end;
+    margin-right: 3px; 
+}
+
+
 
 .styleforlist {
     
@@ -124,20 +135,23 @@ input {
 .delete-btn { 
     background: transparent; 
     border: none;           
-    cursor: pointer;
+    
     display: flex;           
     align-items: center;
     justify-content: center; 
-    transition: fill 0.3s;
+    
     }
-.delete-btn:hover  {
+
+.delete-btn:hover svg {
   background: lightgray; 
 }
 
 .icon-btn svg {
   fill: black; 
   width: 20px;
-  height: 20px; 
+  height: 20px;
+  transition: fill 0.3s; 
+  cursor: pointer;
 }
 
 
@@ -152,10 +166,10 @@ input {
 #reset-btn {
     background: transparent; 
     border: none;           
-    cursor: pointer;
     display: flex;           
     align-items: center;
     justify-content: center; 
+    cursor: pointer;
     transition: fill 0.3s;
 }
 
