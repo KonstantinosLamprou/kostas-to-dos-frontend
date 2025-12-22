@@ -74,8 +74,52 @@ input {
 }
 
 
+
 #taskheader {
     font-size: large;
     color: #fff;
 }
 
+
+
+/* Ist derselbe Button! delete und icon*/
+.delete-btn { 
+    background: transparent; 
+    border: none;           
+    cursor: pointer;
+    display: flex;           
+    align-items: center;
+    justify-content: center; 
+    transition: fill 0.3s;
+    }
+.delete-btn:hover  {
+  background: lightgray; 
+}
+
+.icon-btn svg {
+  fill: black; 
+  width: 20px;
+  height: 20px; 
+}
+
+
+
+.resetdiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#reset-btn {
+    background: transparent; 
+    border: none;           
+    cursor: pointer;
+    display: flex;           
+    align-items: center;
+    justify-content: center; 
+}
+
+#reset-btn svg{
+    width: 20px;
+    height: 20px; 
+}
