@@ -2,12 +2,10 @@
 
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
+
+
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
-// const btnremove = document.querySelector('#delete-btn');
-// const activetask = document.querySelector('.active');
-
-
 task.addEventListener('keydown', (e) => {
     
     if (e.key === 'Enter') {
@@ -50,7 +48,13 @@ task.addEventListener('keydown', (e) => {
 
         });
 
+
+        
+        const spacer = document.createElement('div');
+        spacer.style.width = '24px'
+        meindiv.appendChild(spacer);
         //Nun werden dem div was erschaffen worden ist mit Körper und GEHIRN->EL
+        
         meindiv.appendChild(neuetask);
         meindiv.appendChild(deleteButton);
         //Und als letztes das fertige Div einfügen lassen 
@@ -62,8 +66,7 @@ task.addEventListener('keydown', (e) => {
     }
  
 
-});  
-const resetdiv = document.querySelector('resetdiv');
+}); 
 
 
 // Löscht alle tasks
@@ -74,6 +77,16 @@ reset.addEventListener('click', ()=>{
         
         tasklist.innerHTML = ''; 
         });
+
+
+//Schließen und Öffnen der Navbar 
+const navbarToggle = document.querySelector('.navbar-toggle'); 
+const navbarMenu = document.querySelector('.navbar-menu');
+
+navbarToggle.addEventListener('click', () => {
+    navbarToggle.classList.toggle('active');
+    navbarMenu.classList.toggle('active'); 
+});
 
 
 
