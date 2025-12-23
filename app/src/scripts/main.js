@@ -2,7 +2,7 @@
 
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
-
+let tasks = []; 
 
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
@@ -17,7 +17,10 @@ task.addEventListener('keydown', (e) => {
         const neuetask = document.createElement('p'); 
         neuetask.innerText = task.value; 
         const deleteButton = document.createElement('button');
-        
+        if (task.value.trim() !== ""){
+        //Die erstelltem Aufgaben werden hier ins Arrays Tasks Gepusht 
+        tasks.push(neuetask); 
+
         deleteButton.classList.add('delete-btn');
         deleteButton.classList.add('icon-btn');
         deleteButton.innerHTML = `
@@ -34,7 +37,9 @@ task.addEventListener('keydown', (e) => {
         //dieser Funktion implementieren, dann gäbe es ein Problem 
         //da es noch nicht existiert
         deleteButton.addEventListener('click', function(){
-            meindiv.remove();  
+            meindiv.remove(); 
+            //sollte es so sein? 
+            localStorage.removeItem(meindiv);  
         });
         
         meindiv.addEventListener('click', function(){
@@ -49,11 +54,11 @@ task.addEventListener('keydown', (e) => {
         });
 
 
-        
+        //Platzhalter für Zentrierungen 
         const spacer = document.createElement('div');
         spacer.style.width = '24px'
         meindiv.appendChild(spacer);
-        //Nun werden dem div was erschaffen worden ist mit Körper und GEHIRN->EL
+        //Nun fügen wir das div ein mit Körper und GEHIRN->EL
         
         meindiv.appendChild(neuetask);
         meindiv.appendChild(deleteButton);
@@ -63,6 +68,10 @@ task.addEventListener('keydown', (e) => {
         task.value = "";
 
 
+        } else {
+            alert("Du kannst keine Task anlegen, ohne etwas geschrieben zu haben!")
+        }
+
     }
  
 
@@ -71,24 +80,28 @@ task.addEventListener('keydown', (e) => {
 
 // Löscht alle tasks
 const reset = document.getElementById("reset-btn");
-
 reset.addEventListener('click', ()=>{
-
-        
-        tasklist.innerHTML = ''; 
-        });
-
+        tasklist.innerHTML = '';
+        //Korrekt?  
+        localStorage.clear(); 
+    });
 
 //Schließen und Öffnen der Navbar 
 const navbarToggle = document.querySelector('.navbar-toggle'); 
 const navbarMenu = document.querySelector('.navbar-menu');
-
 navbarToggle.addEventListener('click', () => {
     navbarToggle.classList.toggle('active');
     navbarMenu.classList.toggle('active'); 
 });
 
+//vorzeitige Speicherung der Tasks, damit sie nach dem Laden nicht verschwinden
+function saveTasksToLocalStorage(key, tasks){
+    localStorage.getItem(key, JSON.stringify(tasks)); 
+};
 
-
+function loadTaskFromLocalStorage(key) {
+  const storedTask= localStorage.getItem(key);
+  return storedTask ? JSON.parse(storedTask) : null; // Gibt null zurück, wenn nichts gespeichert wurde
+}
 
 
