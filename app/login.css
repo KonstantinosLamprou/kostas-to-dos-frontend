@@ -9,16 +9,44 @@
     font-family: "Poppins", sans-serif;
     text-decoration: none;
 }
-
-body {
-    min-height: 100vh;
-    /* margin: 0 0 2em; */
-    background: linear-gradient(#e66465, #9198e5);
+.container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+
 }
 
+
+.home {
+    position: sticky;
+}
+
+.home i:hover {
+    background: lightgrey;
+    
+}
+.home a {
+    color: #fff;    
+}
+
+.home a i {
+    font-size: 30px; 
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+
+body, .container {
+    min-height: 100vh;
+    margin: 0 0 2em;
+    background: linear-gradient(#e66465, #9198e5);
+    
+   
+}
 /* Wrapper ist der Hauptdiv der Struktur */
 .wrapper {
     width: 420px;
