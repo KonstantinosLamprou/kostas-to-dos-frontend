@@ -179,3 +179,54 @@ body, .container {
 
 
 
+
+@media (max-width: 880px) {
+    .div-wrapper p{
+        flex: 1;
+        text-align: center; /* Zentriert den Text innerhalb dieses Platzes */
+        font-size: 12px;
+        margin: 0;
+    }
+    .icon-btn svg {
+        fill: #fff; 
+        width: 20px;
+        height: 20px;
+        transition: fill 0.3s; 
+        cursor: pointer;
+    }
+
+    .delete-btn { 
+    background: transparent; 
+    border: none;           
+    flex: 0 0 26px; /* WICHTIG: der Button darf nicht wachsen (0) und schrumpfen (0) */
+    width: 26px;    /* Feste Breite für das Icon?  */
+    height: 26px;
+    display: flex;           
+    align-items: center;
+    justify-content: center; 
+    
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+        .div-wrapper p{
+        flex: 1;
+        text-align: center; /* Zentriert den Text innerhalb dieses Platzes */
+        font-size: 12px;
+        margin: 0;
+    }
+    .delete-btn { 
+        background: transparent; 
+        border: none;           
+        flex: 0 0 26px; /* WICHTIG: der Button darf nicht wachsen (0) und schrumpfen (0) */
+        width: 26px;    /* Feste Breite für das Icon?  */
+        height: 26px;
+        display: flex;           
+        align-items: center;
+        justify-content: center; 
+        
+    }
+}
