@@ -2,9 +2,10 @@
 
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
-let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
 
+let date = document.getElementById('date-input');
 
+let tasks = JSON.parse(localStorage.getItem(date)) || [];
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
 
@@ -19,7 +20,6 @@ function renderTask(taskText) {
     //ich muss bevor ich es dort reinlade es erstmal im Array speichern 
     //Die erstelltem Aufgaben werden hier ins Arrays Tasks Gepusht
    
-    if (task.value.trim() !== "") { 
    
         const meindiv = document.createElement('div');   
         meindiv.classList.add('div-wrapper');       
@@ -68,9 +68,7 @@ function renderTask(taskText) {
         //Und als letztes das fertige Div einfügen lassen 
         //beim enter ensteht es ja deswegen muss man das Gehirn mitimplementieren 
         tasklist.appendChild(meindiv);
-    } else {
-            alert("Du kannst keine Task anlegen, ohne etwas geschrieben zu haben!")
-        }
+    
 }
 //vorzeitige Speicherung der Tasks
 function saveTasksToLocalStorage(key, tasks){
@@ -83,13 +81,13 @@ task.addEventListener('keydown', (e) => {
 
         //input wird hier initial eingepusht 
         tasks.push(task.value); 
-        saveTasksToLocalStorage('MyTasks', tasks);    
+        saveTasksToLocalStorage(date, tasks);    
 
         renderTask(task.value);         
 
         task.value = "";
 
-        } 
+    } 
 }); 
 
 
