@@ -6,6 +6,18 @@ let tasklist = document.querySelector('.list');
 let date = document.getElementById('date-input');
 
 let tasks = JSON.parse(localStorage.getItem(date.value)) || [];
+
+const today = new Date();
+
+const day = today.getDate(); 
+const month = today.getMonth() + 1; //Weil 0-11 deswegen +1 
+const year = today.getFullYear();
+
+const formattedDay =  day < 10 ? '0' + day : day; 
+const formattedMonth = month < 10 ? '0' + month : month; 
+
+let formattedDate = `${formattedDay}.${formattedMonth}.${year}`; 
+date.innerText = formattedDate; 
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
 
