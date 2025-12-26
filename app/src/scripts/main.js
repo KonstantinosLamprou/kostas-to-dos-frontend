@@ -5,7 +5,7 @@ let tasklist = document.querySelector('.list');
 
 let date = document.getElementById('date-input');
 
-let tasks = JSON.parse(localStorage.getItem(date)) || [];
+let tasks = JSON.parse(localStorage.getItem(date.value)) || [];
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
 
@@ -42,9 +42,18 @@ function renderTask(taskText) {
     //Der EventListener ist das Gehirn des Buttons, würdest du es außerhalb
     //dieser Funktion implementieren, dann gäbe es ein Problem 
     //da es noch nicht existiert
-        deleteButton.addEventListener('click', function(){
-            meindiv.remove(); 
-
+        deleteButton.addEventListener('click', function(e){
+            e.stopPropagation();
+            meindiv.remove();
+            //sehr elegant, denn mit der filter Funktion kann man ein neues Array erstellen, ohne das gelöschte item denn:
+            //item !== task.value (alle items die NICHT denselben Wert haben => True / diese werden der Variable tasks als neues array zugeordnet)
+            tasks = tasks.filter(item => item !== taskText);
+            
+            if (tasks.length === 0){
+                localStorage.removeItem(date.value);
+            } else { 
+            localStorage.setItem(date.value, JSON.stringify(tasks)); 
+            }
         });
         
         meindiv.addEventListener('click', function(){
@@ -81,13 +90,15 @@ task.addEventListener('keydown', (e) => {
 
         //input wird hier initial eingepusht 
         tasks.push(task.value); 
-        saveTasksToLocalStorage(date, tasks);    
+        saveTasksToLocalStorage(date.value, tasks);    
 
         renderTask(task.value);         
 
         task.value = "";
 
-    } 
+    } else if (e.key === 'Enter' && task.value.trim() === "") {
+        alert("Du kannst keine Task mit keinem Inhalt anlegen")
+    }
 }); 
 
 
@@ -95,8 +106,9 @@ task.addEventListener('keydown', (e) => {
 // Löscht alle tasks
 const reset = document.getElementById("reset-btn");
 reset.addEventListener('click', ()=>{
-        tasklist.innerHTML = '';
-        //Korrekt?  
+    tasklist.innerHTML = '';
+    tasks = [];
+    localStorage.removeItem(date.value);
       
     });
 
