@@ -2,29 +2,39 @@
 
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
-
 let date = document.getElementById('date-input');
 
-let tasks = JSON.parse(localStorage.getItem(date.value)) || [];
 
 const today = new Date();
 
 const day = today.getDate(); 
 const month = today.getMonth() + 1; //Weil 0-11 deswegen +1 
 const year = today.getFullYear();
-
+//ternary operator action 
 const formattedDay =  day < 10 ? '0' + day : day; 
 const formattedMonth = month < 10 ? '0' + month : month; 
+//auf die ISO fürs Datum achten yyyy-mm-dd 
+let formattedDate = `${year}-${formattedMonth}-${formattedDay}`; 
+date.value = formattedDate; 
+let tasks = JSON.parse(localStorage.getItem(date.value)) || [];
 
-let formattedDate = `${formattedDay}.${formattedMonth}.${year}`; 
-date.innerText = formattedDate; 
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
 
 tasks.forEach(t => {
-    
     renderTask(t);
 });
+
+//EL für das Laden der To-Dos je nachdem was du für Aufgaben für den Tag hast
+date.addEventListener('input', () => {
+    tasklist.innerHTML = ""; 
+    tasks = JSON.parse(localStorage.getItem(date.value)) || [];
+    tasks.forEach(t => {
+        renderTask(t);
+    });
+}); 
+
+
 
 
 
@@ -60,7 +70,7 @@ function renderTask(taskText) {
             //sehr elegant, denn mit der filter Funktion kann man ein neues Array erstellen, ohne das gelöschte item denn:
             //item !== task.value (alle items die NICHT denselben Wert haben => True / diese werden der Variable tasks als neues array zugeordnet)
             tasks = tasks.filter(item => item !== taskText);
-            
+            //wenn es keine tasks mehr gibt, das es im localstorage auch das leere array löscht 
             if (tasks.length === 0){
                 localStorage.removeItem(date.value);
             } else { 
