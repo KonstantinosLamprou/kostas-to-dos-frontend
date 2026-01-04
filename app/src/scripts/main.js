@@ -1,3 +1,43 @@
+/*
+Endpunkte aus meiner Api 
+
+POST -> wenn eine neue Task erstellt wird
+
+PUT -> wenn die erledigt wird oder umgekehrt 
+
+GET -> das alle Aufgaben gezeigt werden die für den Tag anstehen 
+
+DELETE -> wenn eine Aufgabe gelöscht werden soll
+! Brauch ich für den Reset Button ein neuen DELETE Endpunkt der alle Aufgaben löscht 
+*/ 
+async function postData(TaskTitle, TaskDatum) {
+  const url = "http://localhost:5239/tasks";
+  try {
+
+    const response = await fetch(url, {
+          method: "POST", 
+          headers: {
+              "Content-Type": "application/json",
+              },
+           body: JSON.stringify({
+                      title: TaskTitle,
+                      taskdatum: TaskDatum
+                })
+        });
+
+    if (!response.ok){
+        throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+    }    
+
+    const result = await response.json();
+    console.log("Erfolg:", result);
+    return result;
+
+  } catch (error) {
+    console.error("Es gab einen Fehler beim Senden der Daten:", error);
+  }
+};
+
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
 let date = document.getElementById('date-input');
@@ -98,7 +138,7 @@ task.addEventListener('keydown', (e) => {
         saveTasksToLocalStorage(date.value, tasks);    
 
         renderTask(task.value);         
-
+        postData(task.value, date.value)
         task.value = "";
 
     } else if (e.key === 'Enter' && task.value.trim() === "") {
