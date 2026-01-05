@@ -91,6 +91,24 @@ async function updateTask(Id, isComplete) {
 
 }
 
+async function getTasks() {
+    try {
+        const url = "http://localhost:5239/tasks";
+        const response = await fetch(url, {
+            method: "GET",
+        })
+
+        const tasks = await response.json(); 
+        if(!response.ok){
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
+        }
+        console.log(tasks)
+
+    } catch (error) {
+        console.error("Es gab einen Fehler beim Laden der Tasks:", error);
+    }
+
+}
 
 
 
