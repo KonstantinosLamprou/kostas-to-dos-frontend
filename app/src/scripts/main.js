@@ -45,10 +45,9 @@ async function deleteTask(id) {
             method: "DELETE"
         })
 
-        if(!response.ok){
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
+        if(!response.ok){;
         } 
-        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`)
+        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`);
 
     } catch (error) {
         console.error("Es gab einen Fehler beim Updaten der Daten:", error);
@@ -82,9 +81,9 @@ async function updateTask(Id, isComplete) {
             })
         }
         if(!response.ok){
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`); 
         } 
-        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`)
+        console.log(`Die Task mit der ID: ${Id} wurde erfolreich gelöscht`);
     } catch(error){
         console.error("Es gab einen Fehler beim Updaten der Daten:", error);
     }
@@ -95,7 +94,7 @@ async function getTasks() {
     try {
         const url = "http://localhost:5239/tasks";
         const response = await fetch(url, {
-            method: "GET",
+            method: "GET"
         })
 
         const tasks = await response.json(); 
@@ -103,6 +102,8 @@ async function getTasks() {
             throw new Error(`HTTP-Fehler! Status: ${response.status}`)
         }
         console.log(tasks)
+
+        return tasks; 
 
     } catch (error) {
         console.error("Es gab einen Fehler beim Laden der Tasks:", error);
@@ -115,10 +116,8 @@ async function getTasks() {
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
 let date = document.getElementById('date-input');
-//Funktion vorzeitige Speicherung der Tasks
-function saveTasksToLocalStorage(key, tasks){
-    localStorage.setItem(key, JSON.stringify(tasks)); 
-}
+
+
 //aktuelles Datum 
 const today = new Date();
 const day = today.getDate(); 
@@ -130,21 +129,9 @@ const formattedMonth = month < 10 ? '0' + month : month;
 //auf die ISO fürs Datum achten yyyy-mm-dd 
 let formattedDate = `${year}-${formattedMonth}-${formattedDay}`; 
 date.value = formattedDate; 
-let tasks = JSON.parse(localStorage.getItem(date.value)) || [];
-//initiales Schauen ob Tasks existieren bzw. im localstorage sich befinden
-tasks.forEach(t => {
-    renderTask(t);
-});
-//EL für das Laden der To-Dos je nachdem was du für Aufgaben für den Tag hast
-date.addEventListener('input', () => {
-    tasklist.innerHTML = ""; 
-    tasks = JSON.parse(localStorage.getItem(date.value)) || [];
-    tasks.forEach(t => {
-        renderTask(t);
-    });
-}); 
 
-function renderTask(taskText) {
+
+function renderTask(taskText, tasks) {
     //ich muss bevor ich es dort reinlade es erstmal im Array speichern 
     //Die erstelltem Aufgaben werden hier ins Arrays Tasks Gepusht
     const meindiv = document.createElement('div');   
@@ -171,16 +158,7 @@ function renderTask(taskText) {
     deleteButton.addEventListener('click', function(e){
         e.stopPropagation();
         meindiv.remove();
-        //sehr elegant, denn mit der filter Funktion kann man ein neues Array erstellen, ohne das gelöschte item denn:
-        //item !== task.value (alle items die NICHT denselben Wert haben => True / diese werden der Variable tasks als neues array zugeordnet)
-        tasks = tasks.filter(item => item !== taskText);
-        //wenn es keine tasks mehr gibt, das es im localstorage auch das leere array löscht 
-        if (tasks.length === 0){
-            localStorage.removeItem(date.value);
-        } else { 
-            localStorage.setItem(date.value, JSON.stringify(tasks)); 
-        }
-    });
+
     
     meindiv.addEventListener('click', function(){
         
@@ -207,26 +185,25 @@ function renderTask(taskText) {
 //e steht kurz für event, es ist ein event objekt 
 task.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && task.value.trim() !== "") {
-        //input wird hier initial eingepusht 
-        tasks.push(task.value); 
-        saveTasksToLocalStorage(date.value, tasks);    
+        
+          
 
-        renderTask(task.value);         
-        postData(task.value, date.value)
+                
+        //speichern in datenbank
+        postData(task.value, date.value); 
+        const tasks = getTasks(); 
+        renderTask(task.value, tasks); 
         task.value = "";
-
     } else if (e.key === 'Enter' && task.value.trim() === "") {
         alert("Du kannst keine Task mit keinem Inhalt anlegen")
     }
-}); 
+});
 // Löscht alle tasks /reset 
 const reset = document.getElementById("reset-btn");
 reset.addEventListener('click', ()=>{
     tasklist.innerHTML = '';
-    tasks = [];
-    localStorage.removeItem(date.value);
-      
-    });
+
+});
 
 //Schließen und Öffnen der Navbar 
 const navbarToggle = document.querySelector('.navbar-toggle'); 
