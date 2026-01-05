@@ -38,6 +38,62 @@ async function postData(TaskTitle, TaskDatum) {
   }
 };
 
+async function deleteTask(id) {
+    try {
+        const url = `http://localhost:5239/tasks/${id}`; 
+        const response = await fetch(url, {
+            method: "DELETE"
+        })
+
+        if(!response.ok){
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
+        } 
+        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`)
+
+    } catch (error) {
+        console.error("Es gab einen Fehler beim Updaten der Daten:", error);
+    }
+
+}; 
+
+async function updateTask(Id, isComplete) {
+    try {
+        const url =  `http://localhost:5239/tasks/${Id}`; 
+        if(isComplete === true){
+            await fetch(url, {
+                method: "PUT", 
+                headers: 
+                {"Content-Type": "application/json"}, 
+                body: JSON.stringify({
+                    id: Id, 
+                    iscomplete: false
+                })  
+            })
+        } else {
+            await fetch(url, {
+                method: "PUT", 
+                headers: 
+                {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    id: Id, 
+                    iscomplete: true
+                })
+
+            })
+        }
+        if(!response.ok){
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
+        } 
+        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`)
+    } catch(error){
+        console.error("Es gab einen Fehler beim Updaten der Daten:", error);
+    }
+
+}
+
+
+
+
 let task = document.querySelector('input');
 let tasklist = document.querySelector('.list');
 let date = document.getElementById('date-input');
