@@ -158,6 +158,7 @@ function renderTask(taskText, tasks) {
     deleteButton.addEventListener('click', function(e){
         e.stopPropagation();
         meindiv.remove();
+    }); 
 
     
     meindiv.addEventListener('click', function(){
@@ -181,8 +182,11 @@ function renderTask(taskText, tasks) {
     //beim enter ensteht es ja deswegen muss man das Gehirn mitimplementieren 
     tasklist.appendChild(meindiv);
 }
+
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
+
+
 task.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && task.value.trim() !== "") {
         
