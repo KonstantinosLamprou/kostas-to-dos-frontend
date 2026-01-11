@@ -112,7 +112,7 @@ export async function getTasks() {
         if(!response.ok){
             throw new Error(`HTTP-Fehler! Status: ${response.status}`)
         }
-        console.log(tasks)
+        console.log(tasks); 
 
         return tasks; 
 
