@@ -1,115 +1,9 @@
-/*
-Endpunkte aus meiner Api 
+import { postData } from './apiService.js'; 
+import { getTasks } from './apiService.js'; 
+import { updateTask } from './apiService.js'; 
+import { deleteTask } from './apiService.js'; 
 
-POST -> wenn eine neue Task erstellt wird
-
-PUT -> wenn die erledigt wird oder umgekehrt 
-
-GET -> das alle Aufgaben gezeigt werden die für den Tag anstehen 
-
-DELETE -> wenn eine Aufgabe gelöscht werden soll
-! Brauch ich für den Reset Button ein neuen DELETE Endpunkt der alle Aufgaben löscht 
-*/ 
-async function postData(TaskTitle, TaskDatum) {
-  const url = "http://localhost:5239/tasks";
-  try {
-
-    const response = await fetch(url, {
-          method: "POST", 
-          headers: {
-              "Content-Type": "application/json",
-              },
-           body: JSON.stringify({
-                      title: TaskTitle,
-                      taskdatum: TaskDatum
-                })
-        });
-
-    if (!response.ok){
-        throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-    }    
-
-    const result = await response.json();
-    console.log("Erfolg:", result);
-    return result;
-
-  } catch (error) {
-    console.error("Es gab einen Fehler beim Senden der Daten:", error);
-  }
-};
-
-async function deleteTask(id) {
-    try {
-        const url = `http://localhost:5239/tasks/${id}`; 
-        const response = await fetch(url, {
-            method: "DELETE"
-        })
-
-        if(!response.ok){;
-        } 
-        console.log(`Die Task mit der ID: ${id} wurde erfolreich gelöscht`);
-
-    } catch (error) {
-        console.error("Es gab einen Fehler beim Updaten der Daten:", error);
-    }
-
-}; 
-
-async function updateTask(Id, isComplete) {
-    try {
-        const url =  `http://localhost:5239/tasks/${Id}`; 
-        if(isComplete === true){
-            await fetch(url, {
-                method: "PUT", 
-                headers: 
-                {"Content-Type": "application/json"}, 
-                body: JSON.stringify({
-                    id: Id, 
-                    iscomplete: false
-                })  
-            })
-        } else {
-            await fetch(url, {
-                method: "PUT", 
-                headers: 
-                {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    id: Id, 
-                    iscomplete: true
-                })
-
-            })
-        }
-        if(!response.ok){
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`); 
-        } 
-        console.log(`Die Task mit der ID: ${Id} wurde erfolreich gelöscht`);
-    } catch(error){
-        console.error("Es gab einen Fehler beim Updaten der Daten:", error);
-    }
-
-}
-
-async function getTasks() {
-    try {
-        const url = "http://localhost:5239/tasks";
-        const response = await fetch(url, {
-            method: "GET"
-        })
-
-        const tasks = await response.json(); 
-        if(!response.ok){
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`)
-        }
-        console.log(tasks)
-
-        return tasks; 
-
-    } catch (error) {
-        console.error("Es gab einen Fehler beim Laden der Tasks:", error);
-    }
-
-}
+import { giveDate } from './utils.js';
 
 
 
@@ -118,16 +12,8 @@ let tasklist = document.querySelector('.list');
 let date = document.getElementById('date-input');
 
 
-//aktuelles Datum 
-const today = new Date();
-const day = today.getDate(); 
-const month = today.getMonth() + 1; //Weil 0-11 deswegen +1 
-const year = today.getFullYear();
-//ternary operator in aktion 
-const formattedDay =  day < 10 ? '0' + day : day; 
-const formattedMonth = month < 10 ? '0' + month : month; 
-//auf die ISO fürs Datum achten yyyy-mm-dd 
-let formattedDate = `${year}-${formattedMonth}-${formattedDay}`; 
+//Datum von Heute
+let formattedDate = giveDate(); 
 date.value = formattedDate; 
 
 
@@ -186,7 +72,7 @@ function renderTask(taskText, tasks) {
 //der EventListener nach dem Enter gedrückt worden ist 
 //e steht kurz für event, es ist ein event objekt 
 
-
+//das kann als die main funktion betrachtet werden: 
 task.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && task.value.trim() !== "") {
         
