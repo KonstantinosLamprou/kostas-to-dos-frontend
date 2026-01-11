@@ -16,7 +16,7 @@ let date = document.getElementById('date-input');
 let formattedDate = giveDate(); 
 date.value = formattedDate; 
 
-
+//TODO: Refactoring der Render Task
 function renderTask(taskText, tasks) {
     //ich muss bevor ich es dort reinlade es erstmal im Array speichern 
     //Die erstelltem Aufgaben werden hier ins Arrays Tasks Gepusht
